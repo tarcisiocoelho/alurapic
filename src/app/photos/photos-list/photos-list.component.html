@@ -1,0 +1,12 @@
+<div class="text-center mt-3 mb-4">
+  <form class="d-flex justify-content align-items-center w-50 ml-auto mr-auto">
+    <i aria-hidden="true" class="fa fa-search ml-auto mr-2"></i>
+    <input type="search" class="rounded form-control " placeholder="Buscar..." name="buscar" [(ngModel)]="buscar">
+  </form>
+</div>
+
+<!-- Aplicando pipe em photos (filter recebe o valor digitado no input) -->
+<app-photos [photos]="responsePhotoList | filterByDescription: buscar"></app-photos>
+
+<!-- Fazendo uma [hasMoreButton] com a hasMoreList do list component -->
+<app-load-button (click)="load()" [hasMoreButton]="hasMoreList"></app-load-button>
