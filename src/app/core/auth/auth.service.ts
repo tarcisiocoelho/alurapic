@@ -10,8 +10,7 @@ const API_URL = 'http://localhost:3000';
 })
 export class AuthService {
 
-  constructor(
-    private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   authenticate(userName: string, password: string){
     return this.http
