@@ -8,6 +8,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotosListComponent } from './photos/photos-list/photos-list.component';
+import { SignUpComponent } from './home/sign-up/sign-up.componente';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
     path: '',
     component: SignInComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent,
   },
   {
     path: 'p/add',
