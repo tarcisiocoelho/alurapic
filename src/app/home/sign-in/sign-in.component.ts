@@ -1,7 +1,7 @@
 import { PlataformDetectorService } from './../../core/plataform-detector/plataform-detector.service';
 import { AuthService } from './../../core/auth/auth.service';
 
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 
@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
   templateUrl: './sign-in.component.html'
 })
 
-export class SignInComponent implements OnInit{
+export class SignInComponent implements OnInit, AfterViewInit{
 
   loginForm: FormGroup;
   @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private route: Router, private platformDetectorService: PlataformDetectorService) {}
+
+  ngAfterViewInit(): void {
+    if(this.platformDetectorService.isPlatformBrowser()){
+      this.userNameInput.nativeElement.focus();
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -33,9 +39,8 @@ export class SignInComponent implements OnInit{
         this.loginForm.reset();
         this.platformDetectorService.isPlatformBrowser() && this.userNameInput.nativeElement.focus();
         alert('Ta  tudo invalido ai');
-
       }
     )
   }
-  
+
 }

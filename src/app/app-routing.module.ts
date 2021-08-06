@@ -1,16 +1,22 @@
-import { AuthGuard } from './core/auth/auth-guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SignInComponent } from './home/sign-in/sign-in.component';
 import { PhotoListResolver } from './photos/photos-list/photo-list.resolver';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
-
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotosListComponent } from './photos/photos-list/photos-list.component';
-import { SignUpComponent } from './home/sign-up/sign-up.componente';
+
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  },
   {
     path: 'user/:userName',
     component: PhotosListComponent,
@@ -19,15 +25,6 @@ const routes: Routes = [
     resolve: {
       photos: PhotoListResolver
     }
-  },
-  {
-    path: '',
-    component: SignInComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'signup',
-    component: SignUpComponent,
   },
   {
     path: 'p/add',
@@ -40,7 +37,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
